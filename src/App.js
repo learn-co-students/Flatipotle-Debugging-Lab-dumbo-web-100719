@@ -1,41 +1,61 @@
-import React, { Component } from 'react'
-import './App.css'
-import Form from './Form'
-import Order from './Order'
+import React, { Component } from "react";
+import "./App.css";
+import Form from "./components/Form";
+import Order from "./components/Order";
+import uuid from "uuid";
 
 class App extends Component {
-  state: {
-    orders: []
-  }
+	state = {
+		orders: []
+	};
 
-  addOrder = (order) => {
-    this.setState({
-      orders: this.state.orders.concat(order)
-    })
-  }
+	addOrder = (order, id) => {
+		let newOrder = { ...order, id };
+		this.setState({
+			orders: this.state.orders.concat(newOrder)
+		});
+	};
 
-  render() {
-    const orders = this.state.orders.map( (order, idx) => {
-      <Order key={idx} {...order} />
-    })
+	deleteOrder = id => {
+		let filterdOrder = this.state.orders.filter(
+			orderDelete => orderDelete.id !== id
+		);
+		this.setState({
+			orders: [...filterdOrder]
+		});
+	};
 
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={ require('./images/logo.png') } className="App-logo" alt="logo" />
-        </header>
+	render() {
+		const orders = this.state.orders.map((order, idx) => {
+			return (
+				<Order
+					key={order.id}
+					id={order.id}
+					{...order}
+					deleteOrder={this.deleteOrder}
+				/>
+			);
+		});
+		console.log(orders);
+		return (
+			<div className="App">
+				<header className="App-header">
+					<img
+						src={require("./images/logo.png")}
+						className="App-logo"
+						alt="logo"
+					/>
+				</header>
 
-        <Form />
+				<Form orders={this.state.orders} addOrder={this.addOrder} />
 
-        <div className="ui raised container segment">
-          <h1 className="ui block header">All Orders</h1>
-          <div className="ui three cards">
-            { orders }
-          </div>
-        </div>
-      </div>
-    )
-  }
+				<div className="ui raised container segment">
+					<h1 className="ui block header">All Orders</h1>
+					<div className="ui three cards">{orders}</div>
+				</div>
+			</div>
+		);
+	}
 }
 
-export default App
+export default App;

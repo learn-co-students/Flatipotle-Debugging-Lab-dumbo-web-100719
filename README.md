@@ -3,7 +3,7 @@
 Flatiron School has decided to dabble in the food industry and just opened up a brand new fast casual Mexican restaurant (not at all a clone of a certain popular restaurant). Engineers were hired to design a web app to allow users to submit orders online, but they mysteriously disappeared and left everything broken. It's now your job to try to find all the bugs and fix the app!
 
 ## Setup
-
+### Complete
 * Clone this repository and `cd` into it
 * Run `npm install` or `yarn install` to install dependencies
 * Run `npm start` or `yarn start` to start the app locally
